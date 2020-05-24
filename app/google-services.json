@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "906009091894",
+    "firebase_url": "https://mixr-f5db1.firebaseio.com",
+    "project_id": "mixr-f5db1",
+    "storage_bucket": "mixr-f5db1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906009091894:android:c546444517585c695b5d97",
+        "android_client_info": {
+          "package_name": "xyz.hipstermojo.battr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906009091894-cr6erid15j2euj71vnh2epoahruvkuj1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.hipstermojo.battr",
+            "certificate_hash": "4495135aec5c2b9d641f4fff44a8c84a99db86a4"
+          }
+        },
+        {
+          "client_id": "906009091894-74ll4f9cfdd747bsqag41ntb4clruohk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5f8-QVp5u44S4uDr4AJr6UITlTTzlwoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906009091894-74ll4f9cfdd747bsqag41ntb4clruohk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
