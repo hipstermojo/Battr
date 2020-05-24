@@ -3,8 +3,6 @@
     <string name="login_activity_link_text">Already a user? Login here</string>
     <string name="register_activity_link_text">New User? Register here</string>
     <string name="register_btn_label">Register</string>
-    <string name="password_label">Password</string>
-    <string name="email_label">Email</string>
     <string name="email_label">Email</string>
     <string name="password_label">Password</string>
     <string name="login_btn_label">Login</string>

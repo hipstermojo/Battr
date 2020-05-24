@@ -16,10 +16,19 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField 'String', 'SpoonacularAPIKey', spoonacularApiKey
+        }
+
         release {
+            buildConfigField 'String', 'SpoonacularAPIKey', spoonacularApiKey
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
 }
@@ -38,7 +47,10 @@ dependencies {
 
 
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    implementation 'com.yuyakaido.android:card-stack-view:2.3.4'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
