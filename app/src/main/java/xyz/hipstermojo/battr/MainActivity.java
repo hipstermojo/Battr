@@ -1,5 +1,6 @@
 package xyz.hipstermojo.battr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,11 +17,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnItemClickListener {
+
+    public static final String RECIPE = "Clicked Recipe";
 
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
-    private ArrayList<Recipe> recipes;
 
 
     @Override
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private ArrayList<Recipe> recipes;
+
     private void fetchRecipes() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com")
@@ -50,9 +54,10 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("RETROFIT","Response unsuccessful. Status: " + response.code());
                 } else {
                     if (response.body() != null) {
-                        ArrayList<Recipe> recipes = response.body().results;
+                        recipes = response.body().results;
                         recipeAdapter = new RecipeAdapter(MainActivity.this,recipes);
                         recyclerView.setAdapter(recipeAdapter);
+                        recipeAdapter.setOnItemClickListener(MainActivity.this);
                     }
                 }
             }
@@ -65,4 +70,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClick(int position) {
+        Intent recipeDetailIntent = new Intent(MainActivity.this,RecipeDetailActivity.class);
+        Recipe clickedRecipe = recipes.get(position);
+        recipeDetailIntent.putExtra(RECIPE,clickedRecipe);
+        startActivity(recipeDetailIntent);
+    }
 }

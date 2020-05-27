@@ -16,7 +16,7 @@ android {
     }
 
     buildTypes {
-        debug{
+        debug {
             buildConfigField 'String', 'SpoonacularAPIKey', spoonacularApiKey
         }
 

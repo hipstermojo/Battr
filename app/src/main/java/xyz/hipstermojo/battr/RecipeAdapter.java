@@ -18,6 +18,11 @@ import java.util.ArrayList;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     private Context context;
     private ArrayList<Recipe> recipes;
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
         this.context = context;
@@ -55,6 +60,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
             imageView = itemView.findViewById(R.id.recipe_card_image);
             textView = itemView.findViewById(R.id.recipe_card_name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener!= null){
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
     }
 }

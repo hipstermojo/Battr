@@ -13,21 +13,24 @@
         android:scaleType="fitStart"
         android:src="@mipmap/ic_launcher" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
         android:layout_gravity="bottom"
         android:orientation="vertical"
         android:background="@drawable/black_gradient"
         >
-
         <TextView
             android:id="@+id/recipe_card_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:ellipsize="end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:text="Recipe name"
+            android:maxLines="2"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
