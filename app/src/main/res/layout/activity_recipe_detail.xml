@@ -1,18 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ImageView
+        android:id="@+id/recipe_view_image"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:src="@drawable/ic_launcher_background"
         android:scaleType="fitXY"
-        android:id="@+id/recipe_view_image"/>
+        tools:src="@drawable/ic_launcher_background" />
+
     <TextView
         android:id="@+id/recipe_view_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dish name"/>
+        tools:text="Dish name" />
+
+    <TextView
+        android:id="@+id/recipe_view_source"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="by Foodie Network" />
+
+    <TextView
+        android:id="@+id/recipe_view_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="45 min" />
+
+    <TextView
+        android:id="@+id/recipe_view_servings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Serves 2" />
+
+    <TextView
+        android:id="@+id/recipe_view_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="https://foodienetwork.com" />
+
+    <TextView
+        android:id="@+id/recipe_view_ingredients_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ingredients" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/recipe_view_ingredients_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/recipe_view_instructions_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Instructions" />
+
+
+    <LinearLayout
+        android:id="@+id/recipe_view_instructions_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
 
 </LinearLayout>
