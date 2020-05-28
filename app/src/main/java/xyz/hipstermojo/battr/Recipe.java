@@ -8,13 +8,12 @@ import com.google.gson.annotations.SerializedName;
 public class Recipe implements Parcelable {
     private static final String baseImageUrl = "https://spoonacular.com/recipeImages/";
     private String id;
-    @SerializedName("image")
-    private String imageName;
+    private String image;
     private String title;
 
     protected Recipe(Parcel in) {
         id = in.readString();
-        imageName = in.readString();
+        image = in.readString();
         title = in.readString();
     }
 
@@ -31,8 +30,10 @@ public class Recipe implements Parcelable {
     };
 
     public String getImage() {
-
-        return String.format("%s%s-480x360.%s", baseImageUrl, id, imageName.split("\\.")[1]);
+        if (!this.image.startsWith("http")){
+            this.image =  String.format("%s%s-480x360.%s", baseImageUrl, id, this.image.split("\\.")[1]);
+        }
+        return this.image;
     }
 
     public String getTitle() {
@@ -47,7 +48,7 @@ public class Recipe implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
-        dest.writeString(this.imageName);
+        dest.writeString(this.image);
         dest.writeString(this.title);
     }
 }
