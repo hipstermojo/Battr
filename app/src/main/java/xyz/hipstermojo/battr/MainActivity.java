@@ -103,12 +103,12 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
         service.listRecipes(BuildConfig.SpoonacularAPIKey).enqueue(new Callback<ListRecipesResponse>() {
             @Override
             public void onResponse(Call<ListRecipesResponse> call, Response<ListRecipesResponse> response) {
-                if (!response.isSuccessful()){
-                    Log.d("RETROFIT","Response unsuccessful. Status: " + response.code());
+                if (!response.isSuccessful()) {
+                    Log.d("RETROFIT", "Response unsuccessful. Status: " + response.code());
                 } else {
                     if (response.body() != null) {
                         recipes = response.body().results;
-                        recipeAdapter = new RecipeAdapter(MainActivity.this,recipes);
+                        recipeAdapter = new RecipeAdapter(MainActivity.this, recipes);
                         cardStackView.setAdapter(recipeAdapter);
                         recipeAdapter.setOnItemClickListener(MainActivity.this);
                     }
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
 
             @Override
             public void onFailure(Call<ListRecipesResponse> call, Throwable t) {
-                Log.d("RETROFIT","HTTP call failed\n" + t.getMessage());
+                Log.d("RETROFIT", "HTTP call failed\n" + t.getMessage());
             }
         });
     }
@@ -125,9 +125,9 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
 
     @Override
     public void onItemClick(int position) {
-        Intent recipeDetailIntent = new Intent(MainActivity.this,RecipeDetailActivity.class);
+        Intent recipeDetailIntent = new Intent(MainActivity.this, RecipeDetailActivity.class);
         Recipe clickedRecipe = recipes.get(position);
-        recipeDetailIntent.putExtra(RECIPE,clickedRecipe);
+        recipeDetailIntent.putExtra(RECIPE, clickedRecipe);
         startActivity(recipeDetailIntent);
     }
 }
