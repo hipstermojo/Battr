@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="400dp">
 
     <androidx.cardview.widget.CardView
@@ -17,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            tools:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/recipe_card_name"
@@ -28,7 +29,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:padding="10dp"
-            android:text="Recipe name"
+            tools:text="Recipe name"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
