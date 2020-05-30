@@ -2,12 +2,14 @@ package xyz.hipstermojo.battr;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,11 +22,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RecipeDetailActivity extends AppCompatActivity {
 
     private Recipe recipe;
+    private RecipeViewModel recipeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipe = getIntent().getParcelableExtra(MainActivity.RECIPE);
         insertRecipeInfo();
 
@@ -85,5 +89,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 Log.e("RETROFIT", String.format("Call to get recipe information failed \n%s", t.getMessage()));
             }
         });
+    }
+
+    public void saveRecipe(View view) {
+        recipeViewModel.insert(recipe);
     }
 }

@@ -8,7 +8,6 @@ import android.view.animation.LinearInterpolator;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
     private CardStackLayoutManager layoutManager;
     private CardStackView cardStackView;
     private RecipeAdapter recipeAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,5 +127,10 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
         Recipe clickedRecipe = recipes.get(position);
         recipeDetailIntent.putExtra(RECIPE, clickedRecipe);
         startActivity(recipeDetailIntent);
+    }
+
+    public void navigate(View view) {
+        Intent intent = new Intent(MainActivity.this,SavedRecipesActivity.class);
+        startActivity(intent);
     }
 }
