@@ -3,26 +3,44 @@ package xyz.hipstermojo.battr;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "recipes")
 public class Recipe implements Parcelable {
+    @Ignore
     private static final String baseImageUrl = "https://spoonacular.com/recipeImages/";
+    @PrimaryKey
     private int id;
     @SerializedName("readyInMinutes")
     private int duration;
     private String image;
+    @Ignore
     @SerializedName("extendedIngredients")
     private List<Ingredient> ingredients;
+    @Ignore
     @SerializedName("analyzedInstructions")
     private List<Instruction> instructions;
     private int servings;
+    @Ignore
     @SerializedName("sourceName")
     private String source;
     private String sourceUrl;
     private String title;
 
+    public Recipe(int id, int duration, String image, int servings, String sourceUrl, String title) {
+        this.id = id;
+        this.duration = duration;
+        this.image = image;
+        this.servings = servings;
+        this.sourceUrl = sourceUrl;
+        this.title = title;
+    }
 
     protected Recipe(Parcel in) {
         id = in.readInt();
