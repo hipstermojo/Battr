@@ -1,4 +1,4 @@
-package xyz.hipstermojo.battr;
+package xyz.hipstermojo.battr.recipe;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,10 +6,15 @@ import android.os.Parcelable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
+
+import xyz.hipstermojo.battr.Ingredient;
+import xyz.hipstermojo.battr.Instruction;
 
 @Entity(tableName = "recipes")
 public class Recipe implements Parcelable {
@@ -22,6 +27,7 @@ public class Recipe implements Parcelable {
     private String image;
     @Ignore
     @SerializedName("extendedIngredients")
+    @Relation(parentColumn = "id", entityColumn = "recipeId")
     private List<Ingredient> ingredients;
     @Ignore
     @SerializedName("analyzedInstructions")
@@ -32,6 +38,7 @@ public class Recipe implements Parcelable {
     private String source;
     private String sourceUrl;
     private String title;
+    private Date createdAt;
 
     public Recipe(int id, int duration, String image, int servings, String sourceUrl, String title) {
         this.id = id;
@@ -68,8 +75,8 @@ public class Recipe implements Parcelable {
     }
 
     public String getImage() {
-        if (!this.image.startsWith("http")){
-            this.image =  String.format("%s%s-480x360.%s", baseImageUrl, id, this.image.split("\\.")[1]);
+        if (!this.image.startsWith("http")) {
+            this.image = String.format("%s%s-480x360.%s", baseImageUrl, id, this.image.split("\\.")[1]);
         }
         return this.image;
     }
@@ -102,6 +109,14 @@ public class Recipe implements Parcelable {
         return ingredients;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -117,17 +132,4 @@ public class Recipe implements Parcelable {
         dest.writeString(this.title);
     }
 
-    class Instruction {
-        public List<Step> steps;
-    }
-
-    class Step {
-        String step;
-        int number;
-    }
-
-    class Ingredient {
-        String name;
-        double amount;
-    }
 }

@@ -3,7 +3,6 @@ package xyz.hipstermojo.battr;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,11 +12,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import xyz.hipstermojo.battr.recipe.Recipe;
+import xyz.hipstermojo.battr.recipe.RecipeViewModel;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
@@ -69,13 +72,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
                         recipeServings.setText(String.format("Serves %d", recipe.getServings()));
                         recipeDuration.setText(String.format("%d min", recipe.getDuration()));
 
-                        for (Recipe.Ingredient ingredient : recipe.getIngredients()){
+                        for (Ingredient ingredient : recipe.getIngredients()){
                             TextView ingredientTextView = new TextView(getApplicationContext());
                             ingredientTextView.setText(ingredient.name);
                             recipesIngredientsView.addView(ingredientTextView);
                         }
 
-                        for (Recipe.Step step : recipe.getInstructions().get(0).steps){
+                        for (Instruction.Step step : recipe.getInstructions().get(0).steps){
                             TextView stepTextView = new TextView(getApplicationContext());
                             stepTextView.setText(step.step);
                             recipesInstructionsView.addView(stepTextView);
@@ -92,6 +95,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     public void saveRecipe(View view) {
+        recipe.setCreatedAt(new Date());
         recipeViewModel.insert(recipe);
     }
 }

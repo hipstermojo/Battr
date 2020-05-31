@@ -1,4 +1,4 @@
-package xyz.hipstermojo.battr;
+package xyz.hipstermojo.battr.recipe;
 
 import android.app.Application;
 

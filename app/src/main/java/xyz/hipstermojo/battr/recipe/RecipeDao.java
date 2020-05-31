@@ -1,4 +1,4 @@
-package xyz.hipstermojo.battr;
+package xyz.hipstermojo.battr.recipe;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -16,6 +16,6 @@ public interface RecipeDao {
     @Delete
     void delete(Recipe recipe);
 
-    @Query("SELECT * FROM recipes")
+    @Query("SELECT * FROM recipes ORDER BY createdAt DESC")
     LiveData<List<Recipe>> getAllRecipes();
 }

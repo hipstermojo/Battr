@@ -1,12 +1,17 @@
-package xyz.hipstermojo.battr;
+package xyz.hipstermojo.battr.recipe;
 
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-@Database(entities = {Recipe.class}, version = 1)
+import xyz.hipstermojo.battr.Converters;
+import xyz.hipstermojo.battr.Ingredient;
+
+@Database(entities = {Recipe.class, Ingredient.class}, version = 3)
+@TypeConverters({Converters.class})
 public abstract class RecipeDatabase extends RoomDatabase {
 
     private static RecipeDatabase instance;
@@ -14,9 +19,9 @@ public abstract class RecipeDatabase extends RoomDatabase {
     public abstract RecipeDao recipeDao();
 
     public static synchronized RecipeDatabase getInstance(Context context) {
-        if (instance == null){
+        if (instance == null) {
             instance = Room.databaseBuilder(
-                    context.getApplicationContext(),RecipeDatabase.class, "recipe_database"
+                    context.getApplicationContext(), RecipeDatabase.class, "recipe_database"
             ).fallbackToDestructiveMigration().build();
         }
         return instance;

@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.hipstermojo.battr.recipe.Recipe;
+
 public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapter.SavedRecipesViewHolder> {
     private List<Recipe> recipes = new ArrayList<>();
     private Context context;
