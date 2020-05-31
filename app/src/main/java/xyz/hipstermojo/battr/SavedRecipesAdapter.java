@@ -35,8 +35,20 @@ public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapte
     @Override
     public void onBindViewHolder(@NonNull SavedRecipesViewHolder holder, int position) {
         Recipe savedRecipe = recipes.get(position);
-        holder.textView.setText(savedRecipe.getTitle());
-        Picasso.get().load(savedRecipe.getImage()).fit().into(holder.imageView);
+        holder.recipeTitle.setText(savedRecipe.getTitle());
+        Picasso.get().load(savedRecipe.getImage()).fit().into(holder.recipeImage);
+        holder.recipeServings.setText(String.format("Serves %d", savedRecipe.getServings()));
+        holder.recipeDuration.setText(formatDuration(savedRecipe.getDuration()));
+    }
+
+    private String formatDuration(int durationMinutes) {
+        String format;
+        if (durationMinutes / 60 == 0) {
+            format = String.format("%dm", durationMinutes % 60);
+        } else {
+            format = String.format("%dh %dm", durationMinutes / 60, durationMinutes % 60);
+        }
+        return format;
     }
 
     @Override
@@ -51,13 +63,17 @@ public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapte
 
     public class SavedRecipesViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView imageView;
-        public TextView textView;
+        public ImageView recipeImage;
+        public TextView recipeTitle;
+        public TextView recipeDuration;
+        public TextView recipeServings;
 
         public SavedRecipesViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.getRootView().findViewById(R.id.saved_recipes_image);
-            textView = itemView.getRootView().findViewById(R.id.saved_recipes_title);
+            recipeImage = itemView.getRootView().findViewById(R.id.saved_recipes_image);
+            recipeTitle = itemView.getRootView().findViewById(R.id.saved_recipes_title);
+            recipeDuration = itemView.getRootView().findViewById(R.id.saved_recipes_duration);
+            recipeServings = itemView.getRootView().findViewById(R.id.saved_recipes_servings);
         }
     }
 }

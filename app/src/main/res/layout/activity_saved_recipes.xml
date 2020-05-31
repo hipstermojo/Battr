@@ -4,13 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".SavedRecipesActivity">
 
     <TextView
         android:id="@+id/saved_recipes_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Your Saved Recipes"
+        android:padding="10dp"
+        android:text="Your Cookbook"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,7 +24,8 @@
         android:id="@+id/saved_recipes_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/saved_recipes_title" />
+        android:paddingBottom="40dp"
+        app:layout_constraintTop_toBottomOf="@id/saved_recipes_title"
+        tools:listitem="@layout/saved_recipe_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

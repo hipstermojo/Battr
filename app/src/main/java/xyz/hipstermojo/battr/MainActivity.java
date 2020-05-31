@@ -1,12 +1,15 @@
 package xyz.hipstermojo.battr;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -18,6 +21,8 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
 
+import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
+import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -88,7 +93,11 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
         recipes = new ArrayList<>();
 
         fetchRecipes();
-
+        DuoDrawerLayout drawerLayout = findViewById(R.id.navigation_drawer);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        DuoDrawerToggle drawerToggle = new DuoDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(drawerToggle);
+        drawerToggle.syncState();
     }
 
     private ArrayList<Recipe> recipes;
@@ -124,14 +133,16 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
 
     @Override
     public void onItemClick(int position) {
+
         Intent recipeDetailIntent = new Intent(MainActivity.this, RecipeDetailActivity.class);
         Recipe clickedRecipe = recipes.get(position);
         recipeDetailIntent.putExtra(RECIPE, clickedRecipe);
+        getWindow().setExitTransition(new Explode());
         startActivity(recipeDetailIntent);
     }
 
     public void navigate(View view) {
         Intent intent = new Intent(MainActivity.this,SavedRecipesActivity.class);
-        startActivity(intent);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 }
