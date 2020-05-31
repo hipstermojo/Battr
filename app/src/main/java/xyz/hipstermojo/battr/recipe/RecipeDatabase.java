@@ -8,15 +8,20 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import xyz.hipstermojo.battr.Converters;
-import xyz.hipstermojo.battr.Ingredient;
+import xyz.hipstermojo.battr.instruction.Instruction;
+import xyz.hipstermojo.battr.instruction.InstructionDao;
+import xyz.hipstermojo.battr.ingredient.Ingredient;
+import xyz.hipstermojo.battr.ingredient.IngredientDao;
 
-@Database(entities = {Recipe.class, Ingredient.class}, version = 3)
+@Database(entities = {Recipe.class, Ingredient.class, Instruction.Step.class}, version = 5)
 @TypeConverters({Converters.class})
 public abstract class RecipeDatabase extends RoomDatabase {
 
     private static RecipeDatabase instance;
 
     public abstract RecipeDao recipeDao();
+    public abstract IngredientDao ingredientDao();
+    public abstract InstructionDao instructionDao();
 
     public static synchronized RecipeDatabase getInstance(Context context) {
         if (instance == null) {

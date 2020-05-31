@@ -19,6 +19,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import xyz.hipstermojo.battr.ingredient.Ingredient;
+import xyz.hipstermojo.battr.ingredient.IngredientViewModel;
+import xyz.hipstermojo.battr.instruction.Instruction;
 import xyz.hipstermojo.battr.recipe.Recipe;
 import xyz.hipstermojo.battr.recipe.RecipeViewModel;
 
@@ -26,12 +29,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private Recipe recipe;
     private RecipeViewModel recipeViewModel;
+    private IngredientViewModel ingredientViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
+        ingredientViewModel = new ViewModelProvider(this).get(IngredientViewModel.class);
         recipe = getIntent().getParcelableExtra(MainActivity.RECIPE);
         insertRecipeInfo();
 
@@ -97,5 +102,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public void saveRecipe(View view) {
         recipe.setCreatedAt(new Date());
         recipeViewModel.insert(recipe);
+        for(Ingredient ingredient: recipe.getIngredients()){
+            ingredient.recipeId = recipe.getId();
+        }
+        ingredientViewModel.insertAll(recipe.getIngredients());
     }
 }

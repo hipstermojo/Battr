@@ -36,7 +36,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
         recipeViewModel.getAllRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
             public void onChanged(List<Recipe> recipes) {
-                Toast.makeText(getApplicationContext(), String.format("Loaded %d recipes with %d ingredients", recipes.size(), recipes.get(0).getIngredients().size()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), String.format("Loaded %d recipes", recipes.size()), Toast.LENGTH_SHORT).show();
                 adapter.setRecipes(recipes);
             }
         });

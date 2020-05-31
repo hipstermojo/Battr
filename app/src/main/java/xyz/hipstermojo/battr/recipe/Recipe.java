@@ -6,15 +6,14 @@ import android.os.Parcelable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 import java.util.List;
 
-import xyz.hipstermojo.battr.Ingredient;
-import xyz.hipstermojo.battr.Instruction;
+import xyz.hipstermojo.battr.ingredient.Ingredient;
+import xyz.hipstermojo.battr.instruction.Instruction;
 
 @Entity(tableName = "recipes")
 public class Recipe implements Parcelable {
@@ -27,7 +26,6 @@ public class Recipe implements Parcelable {
     private String image;
     @Ignore
     @SerializedName("extendedIngredients")
-    @Relation(parentColumn = "id", entityColumn = "recipeId")
     private List<Ingredient> ingredients;
     @Ignore
     @SerializedName("analyzedInstructions")
