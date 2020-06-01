@@ -13,16 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import xyz.hipstermojo.battr.recipe.Recipe;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     private Context context;
-    private ArrayList<Recipe> recipes;
+    private List<Recipe> recipes;
     private OnItemClickListener listener;
 
-    public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
+    public RecipeAdapter(Context context, List<Recipe> recipes) {
         this.context = context;
         this.recipes = recipes;
     }

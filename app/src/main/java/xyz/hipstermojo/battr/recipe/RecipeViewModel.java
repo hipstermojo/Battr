@@ -11,12 +11,14 @@ import java.util.List;
 public class RecipeViewModel extends AndroidViewModel {
     private RecipeRepository recipeRepository;
     private LiveData<List<Recipe>> allRecipes;
+    private LiveData<List<Recipe>> fetchedRecipes;
 
     public RecipeViewModel(@NonNull Application application) {
         super(application);
 
         recipeRepository = new RecipeRepository(application);
         allRecipes = recipeRepository.getAllRecipes();
+        fetchedRecipes = recipeRepository.fetchRecipes();
     }
 
     public void insert(Recipe recipe) {
@@ -29,5 +31,9 @@ public class RecipeViewModel extends AndroidViewModel {
 
     public LiveData<List<Recipe>> getAllRecipes() {
         return allRecipes;
+    }
+
+    public LiveData<List<Recipe>> fetchRecipes() {
+        return fetchedRecipes;
     }
 }

@@ -16,6 +16,8 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -26,6 +28,7 @@ import com.yuyakaido.android.cardstackview.StackFrom;
 import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,13 +36,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.hipstermojo.battr.recipe.Recipe;
+import xyz.hipstermojo.battr.recipe.RecipeViewModel;
 
 import static xyz.hipstermojo.battr.MainActivity.RECIPE;
 
 public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickListener {
-    private ArrayList<Recipe> recipes;
+    private List<Recipe> recipes;
     private RecipeAdapter recipeAdapter;
     private CardStackView cardStackView;
+
 
     @Nullable
     @Override
@@ -97,36 +102,18 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
         cardStackView.setItemAnimator(new DefaultItemAnimator());
         recipes = new ArrayList<>();
 
-        fetchRecipes();
-        return view;
-    }
-
-    private void fetchRecipes() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.spoonacular.com")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-
-        RecipeService service = retrofit.create(RecipeService.class);
-        service.listRecipes(BuildConfig.SpoonacularAPIKey).enqueue(new Callback<ListRecipesResponse>() {
+        RecipeViewModel viewModel = new ViewModelProvider(getActivity()).get(RecipeViewModel.class);
+        viewModel.fetchRecipes().observe(getViewLifecycleOwner(), new Observer<List<Recipe>>() {
             @Override
-            public void onResponse(Call<ListRecipesResponse> call, Response<ListRecipesResponse> response) {
-                if (!response.isSuccessful()) {
-                    Log.d("RETROFIT", "Response unsuccessful. Status: " + response.code());
-                } else {
-                    if (response.body() != null) {
-                        recipes = response.body().results;
-                        recipeAdapter = new RecipeAdapter(getContext(), recipes);
-                        cardStackView.setAdapter(recipeAdapter);
-                        recipeAdapter.setOnItemClickListener(MainFragment.this::onItemClick);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ListRecipesResponse> call, Throwable t) {
-                Log.d("RETROFIT", "HTTP call failed\n" + t.getMessage());
+            public void onChanged(List<Recipe> fetchRecipes) {
+                recipes = fetchRecipes;
+                recipeAdapter = new RecipeAdapter(getContext(), recipes);
+                cardStackView.setAdapter(recipeAdapter);
+                recipeAdapter.setOnItemClickListener(MainFragment.this::onItemClick);
             }
         });
+
+        return view;
     }
 
     @Override
