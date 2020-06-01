@@ -5,9 +5,9 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/noto_sans_regular</item>
+        <item name="android:fontFamily">@font/source_sans_pro_regular</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:textColor">@android:color/white</item>
+
         <item name="android:windowContentTransitions">true</item>
     </style>
 </resources>

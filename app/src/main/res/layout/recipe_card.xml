@@ -33,6 +33,7 @@
                 android:layout_height="wrap_content"
                 android:transitionName="text_transition"
                 android:ellipsize="end"
+                android:fontFamily="@font/playfair_display_regular"
                 android:maxLines="2"
                 android:paddingHorizontal="5dp"
                 android:paddingVertical="10dp"
