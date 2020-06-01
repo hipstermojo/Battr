@@ -1,14 +1,18 @@
 package xyz.hipstermojo.battr;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,8 +24,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.hipstermojo.battr.ingredient.Ingredient;
+import xyz.hipstermojo.battr.ingredient.IngredientAdapter;
 import xyz.hipstermojo.battr.ingredient.IngredientViewModel;
-import xyz.hipstermojo.battr.instruction.Instruction;
+import xyz.hipstermojo.battr.instruction.InstructionAdapter;
 import xyz.hipstermojo.battr.recipe.Recipe;
 import xyz.hipstermojo.battr.recipe.RecipeViewModel;
 
@@ -30,6 +35,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private Recipe recipe;
     private RecipeViewModel recipeViewModel;
     private IngredientViewModel ingredientViewModel;
+
+    private RecyclerView ingredientsRecyclerView;
+    private IngredientAdapter ingredientAdapter;
+
+    private RecyclerView instructionsRecyclerView;
+    private InstructionAdapter instructionAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +53,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         ImageView recipeImage = findViewById(R.id.recipe_view_image);
         TextView recipeTitle = findViewById(R.id.recipe_view_name);
-        TextView recipeUrl = findViewById(R.id.recipe_view_url);
+
+        ingredientsRecyclerView = findViewById(R.id.recipe_view_ingredients_view);
+        ingredientAdapter = new IngredientAdapter(this);
+
+        instructionsRecyclerView = findViewById(R.id.recipe_view_instructions_view);
+        instructionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        instructionAdapter = new InstructionAdapter(this);
 
         Picasso.get()
                 .load(recipe.getImage()).fit()
@@ -50,7 +67,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 .into(recipeImage);
 
         recipeTitle.setText(recipe.getTitle());
-        recipeUrl.setText(recipe.getSourceUrl());
     }
 
 
@@ -70,24 +86,22 @@ public class RecipeDetailActivity extends AppCompatActivity {
                         TextView recipeServings = findViewById(R.id.recipe_view_servings);
                         TextView recipeDuration = findViewById(R.id.recipe_view_duration);
 
-                        LinearLayout recipesIngredientsView = findViewById(R.id.recipe_view_ingredients_view);
-                        LinearLayout recipesInstructionsView = findViewById(R.id.recipe_view_instructions_view);
-
                         recipeSource.setText(String.format("by %s", recipe.getSource()));
                         recipeServings.setText(String.format("Serves %d", recipe.getServings()));
                         recipeDuration.setText(String.format("%d min", recipe.getDuration()));
 
-                        for (Ingredient ingredient : recipe.getIngredients()){
-                            TextView ingredientTextView = new TextView(getApplicationContext());
-                            ingredientTextView.setText(ingredient.name);
-                            recipesIngredientsView.addView(ingredientTextView);
-                        }
+                        ingredientAdapter.setIngredients(recipe.getIngredients());
+                        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), recipe.getIngredients().size() / 2);
+                        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                        layoutManager.setSpanCount(2);
 
-                        for (Instruction.Step step : recipe.getInstructions().get(0).steps){
-                            TextView stepTextView = new TextView(getApplicationContext());
-                            stepTextView.setText(step.step);
-                            recipesInstructionsView.addView(stepTextView);
-                        }
+                        ingredientsRecyclerView.setLayoutManager(layoutManager);
+                        ingredientsRecyclerView.setHasFixedSize(true);
+                        ingredientsRecyclerView.setAdapter(ingredientAdapter);
+
+                        instructionAdapter.setSteps(recipe.getInstructions().get(0).steps);
+                        instructionsRecyclerView.setAdapter(instructionAdapter);
+
                     }
                 }
             }
@@ -102,9 +116,16 @@ public class RecipeDetailActivity extends AppCompatActivity {
     public void saveRecipe(View view) {
         recipe.setCreatedAt(new Date());
         recipeViewModel.insert(recipe);
-        for(Ingredient ingredient: recipe.getIngredients()){
+        for (Ingredient ingredient : recipe.getIngredients()) {
             ingredient.recipeId = recipe.getId();
         }
         ingredientViewModel.insertAll(recipe.getIngredients());
+    }
+
+    public void openLink(View view) {
+        Uri link = Uri.parse(recipe.getSourceUrl());
+        Intent intent = new Intent(Intent.ACTION_VIEW, link);
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
     }
 }
