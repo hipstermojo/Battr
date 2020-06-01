@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
@@ -37,16 +38,17 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.syncState();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
         transaction.add(R.id.container, new MainFragment()).commit();
     }
 
     public void navigate(View view) {
+        FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (view.getId() == R.id.menu_header_saved_recipes_label) {
+        transaction.addToBackStack(null);
+        if (view.getId() == R.id.menu_header_saved_recipes_label && manager.getBackStackEntryCount() == 0) { // this means the user clicked "Your cookbook" after opening the app
             transaction.add(R.id.container, new SavedRecipesFragment()).commit();
-        } else {
-            transaction.add(R.id.container, new MainFragment()).commit();
+        } else if(manager.getBackStackEntryCount() == 1 && view.getId() == R.id.menu_header_app_name) { // If the back stack is empty then the user had not left the main fragment
+            manager.popBackStack();
         }
         drawerLayout.closeDrawer();
     }
