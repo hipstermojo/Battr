@@ -13,7 +13,7 @@ import xyz.hipstermojo.battr.instruction.InstructionDao;
 import xyz.hipstermojo.battr.ingredient.Ingredient;
 import xyz.hipstermojo.battr.ingredient.IngredientDao;
 
-@Database(entities = {Recipe.class, Ingredient.class, Instruction.Step.class}, version = 5)
+@Database(entities = {Recipe.class, Ingredient.class, Instruction.Step.class}, version = 6)
 @TypeConverters({Converters.class})
 public abstract class RecipeDatabase extends RoomDatabase {
 

@@ -17,6 +17,8 @@ import java.util.List;
 
 import xyz.hipstermojo.battr.recipe.Recipe;
 
+import static xyz.hipstermojo.battr.Utils.formatDuration;
+
 public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapter.SavedRecipesViewHolder> {
     private List<Recipe> recipes = new ArrayList<>();
     private Context context;
@@ -39,16 +41,6 @@ public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapte
         Picasso.get().load(savedRecipe.getImage()).fit().into(holder.recipeImage);
         holder.recipeServings.setText(String.format("Serves %d", savedRecipe.getServings()));
         holder.recipeDuration.setText(formatDuration(savedRecipe.getDuration()));
-    }
-
-    private String formatDuration(int durationMinutes) {
-        String format;
-        if (durationMinutes / 60 == 0) {
-            format = String.format("%dm", durationMinutes % 60);
-        } else {
-            format = String.format("%dh %dm", durationMinutes / 60, durationMinutes % 60);
-        }
-        return format;
     }
 
     @Override

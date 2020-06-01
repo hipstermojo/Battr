@@ -30,6 +30,8 @@ import xyz.hipstermojo.battr.instruction.InstructionAdapter;
 import xyz.hipstermojo.battr.recipe.Recipe;
 import xyz.hipstermojo.battr.recipe.RecipeViewModel;
 
+import static xyz.hipstermojo.battr.Utils.formatDuration;
+
 public class RecipeDetailActivity extends AppCompatActivity {
 
     private Recipe recipe;
@@ -88,7 +90,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
                         recipeSource.setText(String.format("by %s", recipe.getSource()));
                         recipeServings.setText(String.format("Serves %d", recipe.getServings()));
-                        recipeDuration.setText(String.format("%d min", recipe.getDuration()));
+                        recipeDuration.setText(formatDuration(recipe.getDuration()));
 
                         ingredientAdapter.setIngredients(recipe.getIngredients());
                         GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), recipe.getIngredients().size() / 2);

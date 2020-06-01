@@ -10,4 +10,7 @@ public class Ingredient {
     public int recipeId;
     public String name;
     public double amount;
+    public String aisle;
+    public String unit;
+
 }
