@@ -1,15 +1,14 @@
 package xyz.hipstermojo.battr;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,12 +33,12 @@ public class LoginActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.login_password_input);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        authStateListener = new FirebaseAuth.AuthStateListener(){
+        authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user!=null){
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                if (user != null) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -72,12 +71,12 @@ public class LoginActivity extends AppCompatActivity {
     public void submitLogin(View view) {
         final String email = emailInput.getText().toString();
         final String password = passwordInput.getText().toString();
-        if (!email.trim().isEmpty() && !password.trim().isEmpty()){
-            firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+        if (!email.trim().isEmpty() && !password.trim().isEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (!task.isSuccessful()){
-                        Toast.makeText(LoginActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

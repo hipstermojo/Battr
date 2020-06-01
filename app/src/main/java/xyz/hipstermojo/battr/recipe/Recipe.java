@@ -17,6 +17,17 @@ import xyz.hipstermojo.battr.instruction.Instruction;
 
 @Entity(tableName = "recipes")
 public class Recipe implements Parcelable {
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
     @Ignore
     private static final String baseImageUrl = "https://spoonacular.com/recipeImages/";
     @PrimaryKey
@@ -55,18 +66,6 @@ public class Recipe implements Parcelable {
         sourceUrl = in.readString();
         title = in.readString();
     }
-
-    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
-        @Override
-        public Recipe createFromParcel(Parcel in) {
-            return new Recipe(in);
-        }
-
-        @Override
-        public Recipe[] newArray(int size) {
-            return new Recipe[size];
-        }
-    };
 
     public int getId() {
         return id;

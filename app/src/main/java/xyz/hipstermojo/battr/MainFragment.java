@@ -36,7 +36,7 @@ import xyz.hipstermojo.battr.recipe.Recipe;
 
 import static xyz.hipstermojo.battr.MainActivity.RECIPE;
 
-public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickListener{
+public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickListener {
     private ArrayList<Recipe> recipes;
     private RecipeAdapter recipeAdapter;
     private CardStackView cardStackView;

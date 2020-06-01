@@ -14,10 +14,11 @@ import java.util.List;
 
 import xyz.hipstermojo.battr.R;
 
-public class InstructionAdapter extends RecyclerView.Adapter<InstructionAdapter.InstructionViewHolder>{
+public class InstructionAdapter extends RecyclerView.Adapter<InstructionAdapter.InstructionViewHolder> {
     private List<Instruction.Step> steps;
     private Context context;
-    public InstructionAdapter(Context context){
+
+    public InstructionAdapter(Context context) {
         this.context = context;
         this.steps = new ArrayList<>();
     }
@@ -25,7 +26,7 @@ public class InstructionAdapter extends RecyclerView.Adapter<InstructionAdapter.
     @NonNull
     @Override
     public InstructionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.instruction_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.instruction_item, parent, false);
         return new InstructionViewHolder(view);
     }
 
@@ -40,15 +41,16 @@ public class InstructionAdapter extends RecyclerView.Adapter<InstructionAdapter.
         return steps.size();
     }
 
+    public void setSteps(List<Instruction.Step> steps) {
+        this.steps = steps;
+    }
+
     public class InstructionViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
+
         public InstructionViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.instruction_item_step_content);
         }
-    }
-
-    public void setSteps(List<Instruction.Step> steps) {
-        this.steps = steps;
     }
 }

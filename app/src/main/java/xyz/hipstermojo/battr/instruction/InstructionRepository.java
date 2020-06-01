@@ -24,7 +24,7 @@ public class InstructionRepository {
         new DeleteRecipeInstructionsAsyncTask(instructionDao).execute(recipeId);
     }
 
-    public LiveData<List<Instruction.Step>> getRecipeInstructions(int recipeId){
+    public LiveData<List<Instruction.Step>> getRecipeInstructions(int recipeId) {
         return instructionDao.getRecipeInstructions(recipeId);
     }
 

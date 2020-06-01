@@ -10,11 +10,12 @@ public class Utils {
         }
         return format;
     }
+
     public static String formatAmount(double amount) {
-            String format = String.format("%.2f",amount);
-            if (format.endsWith("00")){
-                return String.format("%.0f",amount);
-            }
-            return format;
+        String format = String.format("%.2f", amount);
+        if (format.endsWith("00")) {
+            return String.format("%.0f", amount);
+        }
+        return format;
     }
 }

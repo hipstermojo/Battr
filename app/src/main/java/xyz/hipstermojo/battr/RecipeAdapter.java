@@ -22,19 +22,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private ArrayList<Recipe> recipes;
     private OnItemClickListener listener;
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
     public RecipeAdapter(Context context, ArrayList<Recipe> recipes) {
         this.context = context;
         this.recipes = recipes;
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recipe_card,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recipe_card, parent, false);
         return new RecipeViewHolder(view);
     }
 
@@ -53,6 +53,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return this.recipes.size();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, ImageView imageView, TextView textView);
+    }
+
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
         public ImageView imageView;
         public TextView textView;
@@ -65,18 +69,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (listener!= null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onItemClick(position, imageView, textView);
                         }
                     }
                 }
             });
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, ImageView imageView, TextView textView);
     }
 }

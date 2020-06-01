@@ -10,10 +10,10 @@ public class Instruction {
 
     @Entity(tableName = "steps")
     public static class Step {
-        @PrimaryKey(autoGenerate = true)
-        int stepId;
         public String step;
         public int number;
         public int recipeId;
+        @PrimaryKey(autoGenerate = true)
+        int stepId;
     }
 }

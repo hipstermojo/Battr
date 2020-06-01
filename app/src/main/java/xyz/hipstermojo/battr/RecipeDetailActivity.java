@@ -3,7 +3,6 @@ package xyz.hipstermojo.battr;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
@@ -53,9 +52,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         Fade fadeTransition = new Fade();
         View decor = getWindow().getDecorView();
-        fadeTransition.excludeTarget(decor.findViewById(R.id.action_bar_container),true);
-        fadeTransition.excludeTarget(android.R.id.statusBarBackground,true);
-        fadeTransition.excludeTarget(android.R.id.navigationBarBackground,true);
+        fadeTransition.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
+        fadeTransition.excludeTarget(android.R.id.statusBarBackground, true);
+        fadeTransition.excludeTarget(android.R.id.navigationBarBackground, true);
         getWindow().setEnterTransition(fadeTransition);
         getWindow().setExitTransition(fadeTransition);
 

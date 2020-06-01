@@ -19,15 +19,15 @@ public class RecipeViewModel extends AndroidViewModel {
         allRecipes = recipeRepository.getAllRecipes();
     }
 
-    public void insert(Recipe recipe){
+    public void insert(Recipe recipe) {
         recipeRepository.insert(recipe);
     }
 
-    public void delete(Recipe recipe){
+    public void delete(Recipe recipe) {
         recipeRepository.delete(recipe);
     }
 
-    public LiveData<List<Recipe>> getAllRecipes(){
+    public LiveData<List<Recipe>> getAllRecipes() {
         return allRecipes;
     }
 }

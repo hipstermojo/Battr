@@ -23,10 +23,11 @@ public class SavedRecipesFragment extends Fragment {
     private LinearLayoutManager layoutManager;
     private RecyclerView recyclerView;
     private RecipeViewModel recipeViewModel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_saved_recipes,container,false);
+        View view = inflater.inflate(R.layout.fragment_saved_recipes, container, false);
         SavedRecipesAdapter adapter = new SavedRecipesAdapter(getContext());
         layoutManager = new LinearLayoutManager(getActivity());
 

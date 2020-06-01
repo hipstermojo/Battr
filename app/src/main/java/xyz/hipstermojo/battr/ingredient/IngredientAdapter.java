@@ -44,7 +44,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
         holder.ingredientAmountView.setText(String.format("%s %s", formatAmount(ingredient.amount), ingredient.unit));
         Drawable warningDrawable;
 
-        if (ingredient.aisle!=null){
+        if (ingredient.aisle != null) {
             if (ingredient.aisle.toLowerCase().contains("nuts")) {
                 warningDrawable = context.getResources().getDrawable(R.drawable.nuts_indicator);
                 holder.ingredientWarningView.setBackground(warningDrawable);

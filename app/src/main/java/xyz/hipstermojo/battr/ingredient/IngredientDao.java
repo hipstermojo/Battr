@@ -10,6 +10,7 @@ import java.util.List;
 public interface IngredientDao {
     @Insert
     void insertAll(List<Ingredient> ingredients);
+
     @Query("DELETE FROM ingredients WHERE recipeId = :recipeId")
     void deleteRecipeIngredients(int recipeId);
 }

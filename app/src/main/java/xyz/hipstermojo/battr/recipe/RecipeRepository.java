@@ -11,17 +11,17 @@ public class RecipeRepository {
     private RecipeDao recipeDao;
     private LiveData<List<Recipe>> allRecipes;
 
-    public RecipeRepository(Application application){
+    public RecipeRepository(Application application) {
         RecipeDatabase database = RecipeDatabase.getInstance(application);
         recipeDao = database.recipeDao();
         allRecipes = recipeDao.getAllRecipes();
     }
 
-    public void insert(Recipe recipe){
+    public void insert(Recipe recipe) {
         new InsertRecipeAsyncTask(recipeDao).execute(recipe);
     }
 
-    public void delete(Recipe recipe){
+    public void delete(Recipe recipe) {
         new DeleteRecipeAsyncTask(recipeDao).execute(recipe);
     }
 
@@ -29,10 +29,10 @@ public class RecipeRepository {
         return allRecipes;
     }
 
-    private static class InsertRecipeAsyncTask extends AsyncTask<Recipe,Void,Void>{
+    private static class InsertRecipeAsyncTask extends AsyncTask<Recipe, Void, Void> {
         private RecipeDao recipeDao;
 
-        private InsertRecipeAsyncTask(RecipeDao recipeDao){
+        private InsertRecipeAsyncTask(RecipeDao recipeDao) {
             this.recipeDao = recipeDao;
         }
 
@@ -43,10 +43,10 @@ public class RecipeRepository {
         }
     }
 
-    private static class DeleteRecipeAsyncTask extends AsyncTask<Recipe,Void,Void>{
+    private static class DeleteRecipeAsyncTask extends AsyncTask<Recipe, Void, Void> {
         private RecipeDao recipeDao;
 
-        private DeleteRecipeAsyncTask(RecipeDao recipeDao){
+        private DeleteRecipeAsyncTask(RecipeDao recipeDao) {
             this.recipeDao = recipeDao;
         }
 
