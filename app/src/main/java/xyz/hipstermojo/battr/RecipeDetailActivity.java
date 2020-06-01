@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
@@ -94,6 +95,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 } else {
                     if (response.body() != null) {
                         recipe = response.body();
+
+                        FloatingActionButton floatingActionButton = findViewById(R.id.save_btn);
+                        floatingActionButton.animate().scaleX(1.0f).scaleY(1.0f);
+
                         TextView recipeSource = findViewById(R.id.recipe_view_source);
                         TextView recipeServings = findViewById(R.id.recipe_view_servings);
                         TextView recipeDuration = findViewById(R.id.recipe_view_duration);
