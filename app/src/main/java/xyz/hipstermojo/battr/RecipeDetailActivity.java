@@ -3,6 +3,8 @@ package xyz.hipstermojo.battr;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,6 +50,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+
+        Fade fadeTransition = new Fade();
+        View decor = getWindow().getDecorView();
+        fadeTransition.excludeTarget(decor.findViewById(R.id.action_bar_container),true);
+        fadeTransition.excludeTarget(android.R.id.statusBarBackground,true);
+        fadeTransition.excludeTarget(android.R.id.navigationBarBackground,true);
+        getWindow().setEnterTransition(fadeTransition);
+        getWindow().setExitTransition(fadeTransition);
+
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         ingredientViewModel = new ViewModelProvider(this).get(IngredientViewModel.class);
         recipe = getIntent().getParcelableExtra(MainActivity.RECIPE);

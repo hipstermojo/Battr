@@ -3,24 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <ScrollView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/recipe_view_image"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:contentDescription="Recipe image"
                 android:scaleType="fitXY"
+                android:transitionName="image_transition"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/black_gradient" />
@@ -32,6 +36,7 @@
                 android:fontFamily="@font/playfair_display_regular"
                 android:paddingHorizontal="10dp"
                 android:textSize="24sp"
+                android:transitionName="text_transition"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recipe_view_image"
                 tools:text="Dish name (which happens to be very long and can take up all this space)" />

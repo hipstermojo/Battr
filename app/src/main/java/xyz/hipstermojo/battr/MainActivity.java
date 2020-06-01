@@ -4,12 +4,18 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Explode;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -43,6 +49,13 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Fade fadeTransition = new Fade();
+        View decor = getWindow().getDecorView();
+        fadeTransition.excludeTarget(decor.findViewById(R.id.action_bar_container),true);
+        fadeTransition.excludeTarget(android.R.id.statusBarBackground,true);
+        fadeTransition.excludeTarget(android.R.id.navigationBarBackground,true);
+        getWindow().setEnterTransition(fadeTransition);
+        getWindow().setExitTransition(fadeTransition);
 
         layoutManager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
@@ -95,9 +108,10 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
         fetchRecipes();
         DuoDrawerLayout drawerLayout = findViewById(R.id.navigation_drawer);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        DuoDrawerToggle drawerToggle = new DuoDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        DuoDrawerToggle drawerToggle = new DuoDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
+
     }
 
     private ArrayList<Recipe> recipes;
@@ -132,17 +146,20 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.OnI
 
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, ImageView imageView, TextView textView) {
 
         Intent recipeDetailIntent = new Intent(MainActivity.this, RecipeDetailActivity.class);
         Recipe clickedRecipe = recipes.get(position);
         recipeDetailIntent.putExtra(RECIPE, clickedRecipe);
-        getWindow().setExitTransition(new Explode());
-        startActivity(recipeDetailIntent);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                MainActivity.this, Pair.create(imageView, ViewCompat.getTransitionName(imageView)),
+                Pair.create(textView,ViewCompat.getTransitionName(textView))
+        );
+        startActivity(recipeDetailIntent,optionsCompat.toBundle());
     }
 
     public void navigate(View view) {
-        Intent intent = new Intent(MainActivity.this,SavedRecipesActivity.class);
+        Intent intent = new Intent(MainActivity.this, SavedRecipesActivity.class);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 }

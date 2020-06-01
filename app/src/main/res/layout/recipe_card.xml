@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
+            android:transitionName="image_transition"
             tools:src="@mipmap/ic_launcher" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +31,7 @@
                 android:id="@+id/recipe_card_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:transitionName="text_transition"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:paddingHorizontal="5dp"
