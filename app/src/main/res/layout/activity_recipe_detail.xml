@@ -7,175 +7,185 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/recipe_view_image"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:contentDescription="Recipe image"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
+    <ScrollView
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/black_gradient" />
-
-    <TextView
-        android:id="@+id/recipe_view_name"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/playfair_display_regular"
-        android:paddingHorizontal="10dp"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_image"
-        tools:text="Dish name (which happens to be very long and can take up all this space)" />
-
-    <TextView
-        android:id="@+id/recipe_view_source"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/playfair_display_italic"
-        android:paddingHorizontal="10dp"
-        android:paddingBottom="5dp"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_name"
-        tools:text="by Foodie Network" />
-
-    <TextView
-        android:id="@+id/recipe_view_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_source"
-        android:drawablePadding="5dp"
-        android:drawableStart="@drawable/ic_baseline_access_time_24"
-        tools:text="45 min" />
-
-    <TextView
-        android:id="@+id/recipe_view_servings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
-        app:layout_constraintStart_toEndOf="@id/recipe_view_duration"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_source"
-        tools:text="Serves 2" />
-
-    <TextView
-        android:id="@+id/recipe_view_url"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_baseline_link_24"
-        android:drawablePadding="5dp"
-        android:onClick="openLink"
-        android:paddingHorizontal="10dp"
-        android:text="Read online"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintStart_toEndOf="@id/recipe_view_servings"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_source" />
-
-    <TextView
-        android:id="@+id/recipe_view_ingredients_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/playfair_display_regular"
-        android:padding="10dp"
-        android:text="Ingredients"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_url" />
-
-    <LinearLayout
-        android:id="@+id/ingredients_warning"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="@drawable/bg_border"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_ingredients_title">
-
-        <TextView
-            android:id="@+id/ingredients_warning_title"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/playfair_display_regular"
-            android:text="Dietary warnings"
-            android:textAlignment="center" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/dairy_warning"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:drawableStart="@drawable/milk_indicator"
-                android:drawablePadding="10dp"
-                android:gravity="center"
-                android:text="Dairy"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/recipe_view_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:contentDescription="Recipe image"
+                android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ingredients_warning_title" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/black_gradient" />
 
             <TextView
-                android:id="@+id/nuts_warning"
-                android:layout_width="wrap_content"
+                android:id="@+id/recipe_view_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/nuts_indicator"
-                android:drawablePadding="10dp"
-                android:gravity="center"
-                android:text="Nuts"
-                app:layout_constraintStart_toEndOf="@id/dairy_warning"
-                app:layout_constraintTop_toBottomOf="@id/ingredients_warning_title" />
+                android:fontFamily="@font/playfair_display_regular"
+                android:paddingHorizontal="10dp"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_image"
+                tools:text="Dish name (which happens to be very long and can take up all this space)" />
 
             <TextView
-                android:id="@+id/seafood_warning"
+                android:id="@+id/recipe_view_source"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/playfair_display_italic"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="5dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_name"
+                tools:text="by Foodie Network" />
+
+            <TextView
+                android:id="@+id/recipe_view_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:drawableStart="@drawable/seafood_indicator"
-                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_baseline_access_time_24"
+                android:drawablePadding="5dp"
                 android:gravity="center"
-                android:text="Seafood"
-                app:layout_constraintStart_toEndOf="@id/nuts_warning"
-                app:layout_constraintTop_toBottomOf="@id/ingredients_warning_title" />
-        </LinearLayout>
+                android:paddingHorizontal="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_source"
+                tools:text="45 min" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/recipe_view_servings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintStart_toEndOf="@id/recipe_view_duration"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_source"
+                tools:text="Serves 2" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipe_view_ingredients_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ingredients_warning"
-        tools:itemCount="1"
-        tools:listitem="@layout/ingredient_item" />
+            <TextView
+                android:id="@+id/recipe_view_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_link_24"
+                android:drawablePadding="5dp"
+                android:onClick="openLink"
+                android:paddingHorizontal="10dp"
+                android:text="Read online"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintStart_toEndOf="@id/recipe_view_servings"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_source" />
 
-    <TextView
-        android:id="@+id/recipe_view_instructions_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/playfair_display_regular"
-        android:padding="10dp"
-        android:text="Instructions"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_ingredients_view" />
+            <TextView
+                android:id="@+id/recipe_view_ingredients_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/playfair_display_regular"
+                android:padding="10dp"
+                android:text="Ingredients"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_url" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipe_view_instructions_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/recipe_view_instructions_title"
-        tools:listitem="@layout/instruction_item" />
+            <LinearLayout
+                android:id="@+id/ingredients_warning"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/bg_border"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_ingredients_title">
+
+                <TextView
+                    android:id="@+id/ingredients_warning_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/playfair_display_regular"
+                    android:text="Dietary warnings"
+                    android:textAlignment="center" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/dairy_warning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:drawableStart="@drawable/milk_indicator"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="Dairy"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ingredients_warning_title" />
+
+                    <TextView
+                        android:id="@+id/nuts_warning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:drawableStart="@drawable/nuts_indicator"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="Nuts"
+                        app:layout_constraintStart_toEndOf="@id/dairy_warning"
+                        app:layout_constraintTop_toBottomOf="@id/ingredients_warning_title" />
+
+                    <TextView
+                        android:id="@+id/seafood_warning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:drawableStart="@drawable/seafood_indicator"
+                        android:drawablePadding="10dp"
+                        android:gravity="center"
+                        android:text="Seafood"
+                        app:layout_constraintStart_toEndOf="@id/nuts_warning"
+                        app:layout_constraintTop_toBottomOf="@id/ingredients_warning_title" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recipe_view_ingredients_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_warning"
+                tools:itemCount="1"
+                tools:listitem="@layout/ingredient_item" />
+
+            <TextView
+                android:id="@+id/recipe_view_instructions_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/playfair_display_regular"
+                android:padding="10dp"
+                android:text="Instructions"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_ingredients_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recipe_view_instructions_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/recipe_view_instructions_title"
+                tools:listitem="@layout/instruction_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
@@ -185,5 +195,5 @@
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+

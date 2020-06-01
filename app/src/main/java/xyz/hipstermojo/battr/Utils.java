@@ -4,9 +4,9 @@ public class Utils {
     public static String formatDuration(int durationMinutes) {
         String format;
         if (durationMinutes / 60 == 0) {
-            format = String.format("%dm", durationMinutes % 60);
+            format = String.format("%dmin", durationMinutes % 60);
         } else {
-            format = String.format("%dh %dm", durationMinutes / 60, durationMinutes % 60);
+            format = String.format("%dh %dmin", durationMinutes / 60, durationMinutes % 60);
         }
         return format;
     }
