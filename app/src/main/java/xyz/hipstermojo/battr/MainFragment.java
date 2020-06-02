@@ -1,6 +1,8 @@
 package xyz.hipstermojo.battr;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,6 +50,7 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private boolean canSave = false;
+    private int curId;
 
     @Nullable
     @Override
@@ -84,7 +87,7 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
 
             @Override
             public void onCardAppeared(View view, int position) {
-
+                curId = recipes.get(position).getId();
             }
 
             @Override
@@ -158,6 +161,9 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
     @Override
     public void onStop() {
         super.onStop();
-
+        SharedPreferences sharedPrefs = getActivity().getSharedPreferences("Battr", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putInt("curId",curId);
+        editor.apply();
     }
 }

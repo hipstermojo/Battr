@@ -31,9 +31,13 @@ public class FirestoreService {
         return dbInstance;
     }
 
-    public static void getAllRecipes(MutableLiveData<List<Recipe>> recipes) {
+    public static void getAllRecipes(MutableLiveData<List<Recipe>> recipes, int curId) {
         CollectionReference recipeCollectionRef = getInstance().collection(RECIPES_COLLECTION);
-        recipeCollectionRef.orderBy("id").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Query query = recipeCollectionRef.orderBy("id");
+        if (curId!=-1){
+            query = query.startAt(curId);
+        }
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
