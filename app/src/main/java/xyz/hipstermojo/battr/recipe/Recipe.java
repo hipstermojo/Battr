@@ -11,6 +11,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import xyz.hipstermojo.battr.ingredient.Ingredient;
 import xyz.hipstermojo.battr.instruction.Instruction;
@@ -129,4 +130,14 @@ public class Recipe implements Parcelable {
         dest.writeString(this.title);
     }
 
+    public static Recipe fromHashMap(Map<String, Object> map) {
+        Recipe recipe = new Recipe(
+                ((Long) map.get("id")).intValue(), ((Long) map.get("duration")).intValue(),
+                (String) map.get("image"), ((Long) map.get("servings")).intValue(),
+                (String) map.get("sourceUrl"), (String) map.get("title"));
+        recipe.instructions = Instruction.fromHashMapToList((List<Object>) map.get("instructions"));
+        recipe.ingredients = Ingredient.fromHashMapToList((List<Object>) map.get("ingredients"));
+        recipe.source = (String) map.get("source");
+        return recipe;
+    }
 }

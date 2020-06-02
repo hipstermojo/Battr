@@ -2,6 +2,7 @@ package xyz.hipstermojo.battr;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +38,15 @@ public class SavedRecipesFragment extends Fragment implements SavedRecipesAdapte
     private RecipeViewModel recipeViewModel;
     private SavedRecipesAdapter adapter;
     private List<Recipe> savedRecipes = new ArrayList<>();
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser currentUser;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+    }
 
     @Nullable
     @Override
@@ -47,7 +60,7 @@ public class SavedRecipesFragment extends Fragment implements SavedRecipesAdapte
         recyclerView.setAdapter(adapter);
 
         recipeViewModel = new ViewModelProvider(getActivity()).get(RecipeViewModel.class);
-        recipeViewModel.getAllRecipes().observe(getViewLifecycleOwner(), new Observer<List<Recipe>>() {
+        recipeViewModel.getAllRecipes(currentUser.getEmail()).observe(getViewLifecycleOwner(), new Observer<List<Recipe>>() {
             @Override
             public void onChanged(List<Recipe> recipes) {
                 Toast.makeText(getContext(), String.format("Loaded %d recipes", recipes.size()), Toast.LENGTH_SHORT).show();

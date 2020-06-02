@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
@@ -41,10 +43,16 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private RecyclerView instructionsRecyclerView;
     private InstructionAdapter instructionAdapter;
 
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         Fade fadeTransition = new Fade();
         View decor = getWindow().getDecorView();
@@ -106,7 +114,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     public void saveRecipe(View view) {
         recipe.setCreatedAt(new Date());
-        recipeViewModel.insert(recipe);
+        recipeViewModel.insert(recipe,firebaseUser.getEmail());
         for (Ingredient ingredient : recipe.getIngredients()) {
             ingredient.recipeId = recipe.getId();
         }
