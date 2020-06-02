@@ -25,7 +25,7 @@ import java.util.Objects;
 
 import xyz.hipstermojo.battr.ingredient.Ingredient;
 import xyz.hipstermojo.battr.ingredient.IngredientAdapter;
-import xyz.hipstermojo.battr.ingredient.IngredientViewModel;
+
 import xyz.hipstermojo.battr.instruction.InstructionAdapter;
 import xyz.hipstermojo.battr.recipe.Recipe;
 import xyz.hipstermojo.battr.recipe.RecipeViewModel;
@@ -36,7 +36,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private Recipe recipe;
     private RecipeViewModel recipeViewModel;
-    private IngredientViewModel ingredientViewModel;
 
     private RecyclerView ingredientsRecyclerView;
     private IngredientAdapter ingredientAdapter;
@@ -64,7 +63,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         getWindow().setExitTransition(fadeTransition);
 
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
-        ingredientViewModel = new ViewModelProvider(this).get(IngredientViewModel.class);
         Intent intent = getIntent();
         String sender = intent.getStringExtra(Utils.FRAGMENT_TAG);
         recipe = intent.getParcelableExtra(MainActivity.RECIPE);

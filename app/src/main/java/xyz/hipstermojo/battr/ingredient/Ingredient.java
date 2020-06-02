@@ -1,16 +1,13 @@
 package xyz.hipstermojo.battr.ingredient;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Entity(tableName = "ingredients")
+
 public class Ingredient {
-    @PrimaryKey(autoGenerate = true)
-    public long ingredientId;
     public int recipeId;
     public String name;
     public double amount;

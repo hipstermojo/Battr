@@ -23,16 +23,13 @@ import static xyz.hipstermojo.battr.FirestoreService.RECIPES_COLLECTION;
 import static xyz.hipstermojo.battr.FirestoreService.SAVED_RECIPE_COLLECTION;
 
 public class RecipeRepository {
-    private RecipeDao recipeDao;
     private MutableLiveData<List<Recipe>> allRecipes = new MutableLiveData<>();
     private MutableLiveData<Recipe> recipe;
     private MutableLiveData<List<Recipe>> savedRecipes;
     private FirebaseFirestore firestoreDB;
 
     public RecipeRepository(Application application) {
-        RecipeDatabase database = RecipeDatabase.getInstance(application);
         firestoreDB = FirestoreService.getInstance();
-        recipeDao = database.recipeDao();
         SharedPreferences sharedPref = application.getSharedPreferences("Battr",Context.MODE_PRIVATE);
         FirestoreService.getAllRecipes(allRecipes,sharedPref.getInt("curId",-1));
         recipe = new MutableLiveData<>();
@@ -49,9 +46,10 @@ public class RecipeRepository {
         });
     }
 
-    public void delete(Recipe recipe) {
-        new DeleteRecipeAsyncTask(recipeDao).execute(recipe);
-    }
+    // TODO: Do in Firebase
+//    public void delete(Recipe recipe) {
+//        new DeleteRecipeAsyncTask(recipeDao).execute(recipe);
+//    }
 
     public LiveData<List<Recipe>> getSavedRecipes(String userId) {
         savedRecipes = new MutableLiveData<>();
@@ -66,19 +64,5 @@ public class RecipeRepository {
     public MutableLiveData<Recipe> fetchRecipeById(int recipeId) {
         FirestoreService.findOneRecipe(recipe, Integer.toString(recipeId));
         return recipe;
-    }
-
-    private static class DeleteRecipeAsyncTask extends AsyncTask<Recipe, Void, Void> {
-        private RecipeDao recipeDao;
-
-        private DeleteRecipeAsyncTask(RecipeDao recipeDao) {
-            this.recipeDao = recipeDao;
-        }
-
-        @Override
-        protected Void doInBackground(Recipe... recipes) {
-            this.recipeDao.delete(recipes[0]);
-            return null;
-        }
     }
 }

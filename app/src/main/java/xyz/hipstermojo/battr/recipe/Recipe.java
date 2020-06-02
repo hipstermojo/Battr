@@ -3,11 +3,7 @@ package xyz.hipstermojo.battr.recipe;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
-import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +12,6 @@ import java.util.Map;
 import xyz.hipstermojo.battr.ingredient.Ingredient;
 import xyz.hipstermojo.battr.instruction.Instruction;
 
-@Entity(tableName = "recipes")
 public class Recipe implements Parcelable {
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
         @Override
@@ -29,22 +24,19 @@ public class Recipe implements Parcelable {
             return new Recipe[size];
         }
     };
-    @Ignore
+
     private static final String baseImageUrl = "https://spoonacular.com/recipeImages/";
-    @PrimaryKey
+
     private int id;
-    @SerializedName("readyInMinutes")
     private int duration;
     private String image;
-    @Ignore
-    @SerializedName("extendedIngredients")
+
+
     private List<Ingredient> ingredients;
-    @Ignore
-    @SerializedName("analyzedInstructions")
     private List<Instruction> instructions;
     private int servings;
-    @Ignore
-    @SerializedName("sourceName")
+
+
     private String source;
     private String sourceUrl;
     private String title;

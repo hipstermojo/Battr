@@ -23,7 +23,8 @@ public class RecipeViewModel extends AndroidViewModel {
     }
 
     public void delete(Recipe recipe) {
-        recipeRepository.delete(recipe);
+//        TODO: Fix this
+//        recipeRepository.delete(recipe);
     }
 
     public LiveData<List<Recipe>> getAllRecipes(String userId) {
