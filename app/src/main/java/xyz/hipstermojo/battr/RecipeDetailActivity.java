@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.transition.Fade;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,11 +20,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.hipstermojo.battr.ingredient.Ingredient;
 import xyz.hipstermojo.battr.ingredient.IngredientAdapter;
 import xyz.hipstermojo.battr.ingredient.IngredientViewModel;
@@ -102,7 +96,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         instructionsRecyclerView = findViewById(R.id.recipe_view_instructions_view);
         instructionsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         instructionAdapter = new InstructionAdapter(this);
-
         Picasso.get()
                 .load(recipe.getImage()).fit()
                 .centerCrop()

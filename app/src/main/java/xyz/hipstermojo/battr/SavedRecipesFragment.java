@@ -62,7 +62,7 @@ public class SavedRecipesFragment extends Fragment implements SavedRecipesAdapte
     @Override
     public void onItemClick(int position, ImageView imageView, TextView textView) {
         Intent recipeDetailIntent = new Intent(getActivity(), RecipeDetailActivity.class);
-        Recipe clickedRecipe =  savedRecipes.get(position);
+        Recipe clickedRecipe = savedRecipes.get(position);
         recipeDetailIntent.putExtra(RECIPE, clickedRecipe);
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 getActivity(), Pair.create(imageView, ViewCompat.getTransitionName(imageView)),

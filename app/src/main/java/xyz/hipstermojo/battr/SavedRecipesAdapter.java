@@ -58,6 +58,10 @@ public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapte
         notifyDataSetChanged();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, ImageView imageView, TextView textView);
+    }
+
     public class SavedRecipesViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView recipeImage;
@@ -77,15 +81,11 @@ public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapte
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position,recipeImage,recipeTitle);
+                            listener.onItemClick(position, recipeImage, recipeTitle);
                         }
                     }
                 }
             });
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(int position, ImageView imageView, TextView textView);
     }
 }
