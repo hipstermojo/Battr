@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.addToBackStack(null);
             transaction.add(R.id.container, new SavedRecipesFragment()).commit();
-        } else if(manager.getBackStackEntryCount() == 1 && view.getId() == R.id.menu_header_home_label) { // If the back stack is empty then the user had not left the main fragment
+        } else if (manager.getBackStackEntryCount() == 1 && view.getId() == R.id.menu_header_home_label) { // If the back stack is empty then the user had not left the main fragment
             manager.popBackStack();
         }
         drawerLayout.closeDrawer();

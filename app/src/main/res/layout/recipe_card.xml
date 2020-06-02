@@ -31,7 +31,6 @@
                 android:id="@+id/recipe_card_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:transitionName="text_transition"
                 android:ellipsize="end"
                 android:fontFamily="@font/playfair_display_regular"
                 android:maxLines="2"
@@ -39,6 +38,7 @@
                 android:paddingVertical="10dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
+                android:transitionName="text_transition"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Recipe name" />

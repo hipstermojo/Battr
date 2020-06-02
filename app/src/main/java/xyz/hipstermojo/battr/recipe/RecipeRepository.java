@@ -16,8 +16,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import xyz.hipstermojo.battr.BuildConfig;
 import xyz.hipstermojo.battr.ListRecipesResponse;
-import xyz.hipstermojo.battr.MainFragment;
-import xyz.hipstermojo.battr.RecipeAdapter;
 import xyz.hipstermojo.battr.RecipeService;
 
 public class RecipeRepository {
@@ -42,7 +40,7 @@ public class RecipeRepository {
         return allRecipes;
     }
 
-    public MutableLiveData<List<Recipe>> fetchRecipes(){
+    public MutableLiveData<List<Recipe>> fetchRecipes() {
         MutableLiveData<List<Recipe>> recipes = new MutableLiveData<>();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.spoonacular.com")
@@ -59,6 +57,7 @@ public class RecipeRepository {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ListRecipesResponse> call, Throwable t) {
                 Log.d("RETROFIT", "HTTP call failed\n" + t.getMessage());
