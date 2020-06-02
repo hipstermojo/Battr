@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
+import java.util.Objects;
 
 import xyz.hipstermojo.battr.ingredient.Ingredient;
 import xyz.hipstermojo.battr.ingredient.IngredientAdapter;
@@ -64,14 +65,17 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         ingredientViewModel = new ViewModelProvider(this).get(IngredientViewModel.class);
-        recipe = getIntent().getParcelableExtra(MainActivity.RECIPE);
+        Intent intent = getIntent();
+        String sender = intent.getStringExtra(Utils.FRAGMENT_TAG);
+        recipe = intent.getParcelableExtra(MainActivity.RECIPE);
         recipeViewModel.fetchRecipe(recipe.getId()).observe(this, new Observer<Recipe>() {
             @Override
             public void onChanged(Recipe recipeWithInfo) {
                 recipe = recipeWithInfo;
-
-                FloatingActionButton floatingActionButton = findViewById(R.id.save_btn);
-                floatingActionButton.animate().scaleX(1.0f).scaleY(1.0f);
+                if (Objects.equals(sender, MainFragment.class.getSimpleName())) {
+                    FloatingActionButton floatingActionButton = findViewById(R.id.save_btn);
+                    floatingActionButton.animate().scaleX(1.0f).scaleY(1.0f);
+                }
 
                 TextView recipeSource = findViewById(R.id.recipe_view_source);
                 TextView recipeServings = findViewById(R.id.recipe_view_servings);
@@ -114,11 +118,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     public void saveRecipe(View view) {
         recipe.setCreatedAt(new Date());
-        recipeViewModel.insert(recipe,firebaseUser.getEmail());
-        for (Ingredient ingredient : recipe.getIngredients()) {
-            ingredient.recipeId = recipe.getId();
-        }
-        ingredientViewModel.insertAll(recipe.getIngredients());
+        recipeViewModel.insert(recipe, firebaseUser.getEmail());
+        Intent intent = new Intent();
+        intent.putExtra("RESULT_MSG", "saved");
+        setResult(RESULT_OK);
+        finish();
     }
 
     public void openLink(View view) {
