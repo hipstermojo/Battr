@@ -8,6 +8,20 @@ import java.util.Map;
 public class Instruction {
     public List<Step> steps;
 
+    public static List<Instruction> fromHashMapToList(List<Object> objectMap) {
+        Map<String, Object> holder = (Map<String, Object>) objectMap.get(0);
+        List<Map<String, Object>> objectSteps = (List<Map<String, Object>>) holder.get("steps");
+        List<Step> steps = new ArrayList<>();
+        for (Map<String, Object> objectStep : objectSteps) {
+            steps.add(Step.fromHashMap(objectStep));
+        }
+
+        Instruction instruction = new Instruction();
+        instruction.steps = steps;
+        List<Instruction> result = new ArrayList();
+        result.add(instruction);
+        return result;
+    }
 
     public static class Step {
         public String step;
@@ -27,20 +41,5 @@ public class Instruction {
                     ((Long) objectMap.get("recipeId")).intValue(),
                     (String) objectMap.get("step"));
         }
-    }
-
-    public static List<Instruction> fromHashMapToList(List<Object> objectMap) {
-        Map<String, Object> holder = (Map<String, Object>) objectMap.get(0);
-        List<Map<String, Object>> objectSteps = (List<Map<String, Object>>) holder.get("steps");
-        List<Step> steps = new ArrayList<>();
-        for(Map<String,Object> objectStep: objectSteps){
-            steps.add(Step.fromHashMap(objectStep));
-        }
-
-        Instruction instruction = new Instruction();
-        instruction.steps = steps;
-        List<Instruction> result = new ArrayList();
-        result.add(instruction);
-        return result;
     }
 }

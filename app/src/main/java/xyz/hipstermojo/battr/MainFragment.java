@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -163,7 +162,7 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
         super.onStop();
         SharedPreferences sharedPrefs = getActivity().getSharedPreferences("Battr", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putInt("curId",curId);
+        editor.putInt("curId", curId);
         editor.apply();
     }
 }

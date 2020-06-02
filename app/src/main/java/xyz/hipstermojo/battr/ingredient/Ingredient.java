@@ -1,7 +1,6 @@
 package xyz.hipstermojo.battr.ingredient;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,7 @@ public class Ingredient {
 
     public static List<Ingredient> fromHashMapToList(List<Object> objectList) {
         List<Ingredient> ingredients = new ArrayList<>();
-        for (Object object: objectList){
+        for (Object object : objectList) {
             Map<String, Object> objectMap = (Map<String, Object>) object;
             Ingredient ingredient = new Ingredient();
             ingredient.recipeId = ((Long) objectMap.get("recipeId")).intValue();

@@ -2,6 +2,7 @@ package xyz.hipstermojo.battr;
 
 public class Utils {
     public static final String FRAGMENT_TAG = "FRAGMENT_TAG";
+
     public static String formatDuration(int durationMinutes) {
         String format;
         if (durationMinutes / 60 == 0) {

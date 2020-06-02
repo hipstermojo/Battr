@@ -3,8 +3,6 @@ package xyz.hipstermojo.battr.recipe;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +56,17 @@ public class Recipe implements Parcelable {
         servings = in.readInt();
         sourceUrl = in.readString();
         title = in.readString();
+    }
+
+    public static Recipe fromHashMap(Map<String, Object> map) {
+        Recipe recipe = new Recipe(
+                ((Long) map.get("id")).intValue(), ((Long) map.get("duration")).intValue(),
+                (String) map.get("image"), ((Long) map.get("servings")).intValue(),
+                (String) map.get("sourceUrl"), (String) map.get("title"));
+        recipe.instructions = Instruction.fromHashMapToList((List<Object>) map.get("instructions"));
+        recipe.ingredients = Ingredient.fromHashMapToList((List<Object>) map.get("ingredients"));
+        recipe.source = (String) map.get("source");
+        return recipe;
     }
 
     public int getId() {
@@ -120,16 +129,5 @@ public class Recipe implements Parcelable {
         dest.writeInt(this.servings);
         dest.writeString(this.sourceUrl);
         dest.writeString(this.title);
-    }
-
-    public static Recipe fromHashMap(Map<String, Object> map) {
-        Recipe recipe = new Recipe(
-                ((Long) map.get("id")).intValue(), ((Long) map.get("duration")).intValue(),
-                (String) map.get("image"), ((Long) map.get("servings")).intValue(),
-                (String) map.get("sourceUrl"), (String) map.get("title"));
-        recipe.instructions = Instruction.fromHashMapToList((List<Object>) map.get("instructions"));
-        recipe.ingredients = Ingredient.fromHashMapToList((List<Object>) map.get("ingredients"));
-        recipe.source = (String) map.get("source");
-        return recipe;
     }
 }

@@ -2,7 +2,6 @@ package xyz.hipstermojo.battr;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import java.util.List;
 import xyz.hipstermojo.battr.recipe.Recipe;
 import xyz.hipstermojo.battr.recipe.RecipeViewModel;
 
-import static android.app.Activity.RESULT_OK;
 import static xyz.hipstermojo.battr.MainActivity.RECIPE;
 
 public class SavedRecipesFragment extends Fragment implements SavedRecipesAdapter.OnItemClickListener {
@@ -77,7 +75,7 @@ public class SavedRecipesFragment extends Fragment implements SavedRecipesAdapte
     public void onItemClick(int position, ImageView imageView, TextView textView) {
         Intent recipeDetailIntent = new Intent(getActivity(), RecipeDetailActivity.class);
         Recipe clickedRecipe = savedRecipes.get(position);
-        recipeDetailIntent.putExtra(Utils.FRAGMENT_TAG,SavedRecipesFragment.class.getSimpleName());
+        recipeDetailIntent.putExtra(Utils.FRAGMENT_TAG, SavedRecipesFragment.class.getSimpleName());
         recipeDetailIntent.putExtra(RECIPE, clickedRecipe);
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 getActivity(), Pair.create(imageView, ViewCompat.getTransitionName(imageView)),

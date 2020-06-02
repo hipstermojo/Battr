@@ -3,7 +3,6 @@ package xyz.hipstermojo.battr.recipe;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -16,9 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 import xyz.hipstermojo.battr.FirestoreService;
-import xyz.hipstermojo.battr.R;
 
-import static androidx.core.content.res.TypedArrayUtils.getString;
 import static xyz.hipstermojo.battr.FirestoreService.RECIPES_COLLECTION;
 import static xyz.hipstermojo.battr.FirestoreService.SAVED_RECIPE_COLLECTION;
 
@@ -30,8 +27,8 @@ public class RecipeRepository {
 
     public RecipeRepository(Application application) {
         firestoreDB = FirestoreService.getInstance();
-        SharedPreferences sharedPref = application.getSharedPreferences("Battr",Context.MODE_PRIVATE);
-        FirestoreService.getAllRecipes(allRecipes,sharedPref.getInt("curId",-1));
+        SharedPreferences sharedPref = application.getSharedPreferences("Battr", Context.MODE_PRIVATE);
+        FirestoreService.getAllRecipes(allRecipes, sharedPref.getInt("curId", -1));
         recipe = new MutableLiveData<>();
     }
 

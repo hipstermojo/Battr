@@ -23,9 +23,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 import java.util.Objects;
 
-import xyz.hipstermojo.battr.ingredient.Ingredient;
 import xyz.hipstermojo.battr.ingredient.IngredientAdapter;
-
 import xyz.hipstermojo.battr.instruction.InstructionAdapter;
 import xyz.hipstermojo.battr.recipe.Recipe;
 import xyz.hipstermojo.battr.recipe.RecipeViewModel;

@@ -34,7 +34,7 @@ public class FirestoreService {
     public static void getAllRecipes(MutableLiveData<List<Recipe>> recipes, int curId) {
         CollectionReference recipeCollectionRef = getInstance().collection(RECIPES_COLLECTION);
         Query query = recipeCollectionRef.orderBy("id");
-        if (curId!=-1){
+        if (curId != -1) {
             query = query.startAt(curId);
         }
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
