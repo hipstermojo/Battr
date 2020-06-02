@@ -22,9 +22,14 @@ import static xyz.hipstermojo.battr.Utils.formatDuration;
 public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapter.SavedRecipesViewHolder> {
     private List<Recipe> recipes = new ArrayList<>();
     private Context context;
+    private OnItemClickListener listener;
 
     public SavedRecipesAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -66,6 +71,21 @@ public class SavedRecipesAdapter extends RecyclerView.Adapter<SavedRecipesAdapte
             recipeTitle = itemView.getRootView().findViewById(R.id.saved_recipes_title);
             recipeDuration = itemView.getRootView().findViewById(R.id.saved_recipes_duration);
             recipeServings = itemView.getRootView().findViewById(R.id.saved_recipes_servings);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            listener.onItemClick(position,recipeImage,recipeTitle);
+                        }
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, ImageView imageView, TextView textView);
     }
 }

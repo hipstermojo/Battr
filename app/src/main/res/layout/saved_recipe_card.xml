@@ -27,6 +27,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"
                 android:scaleType="fitStart"
+                android:transitionName="@string/image_transition"
                 tools:src="@drawable/black_gradient" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,6 +43,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
+                    android:transitionName="@string/name_transition"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Recipe Name" />

@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:transitionName="image_transition"
+            android:transitionName="@string/image_transition"
             tools:src="@mipmap/ic_launcher" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
                 android:paddingVertical="10dp"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:transitionName="text_transition"
+                android:transitionName="@string/name_transition"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Recipe name" />
