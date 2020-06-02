@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -62,7 +63,35 @@ public class RecipeDetailActivity extends AppCompatActivity {
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         ingredientViewModel = new ViewModelProvider(this).get(IngredientViewModel.class);
         recipe = getIntent().getParcelableExtra(MainActivity.RECIPE);
-        insertRecipeInfo();
+        recipeViewModel.fetchRecipe(recipe.getId()).observe(this, new Observer<Recipe>() {
+            @Override
+            public void onChanged(Recipe recipeWithInfo) {
+                recipe = recipeWithInfo;
+
+                FloatingActionButton floatingActionButton = findViewById(R.id.save_btn);
+                floatingActionButton.animate().scaleX(1.0f).scaleY(1.0f);
+
+                TextView recipeSource = findViewById(R.id.recipe_view_source);
+                TextView recipeServings = findViewById(R.id.recipe_view_servings);
+                TextView recipeDuration = findViewById(R.id.recipe_view_duration);
+
+                recipeSource.setText(String.format("by %s", recipe.getSource()));
+                recipeServings.setText(String.format("Serves %d", recipe.getServings()));
+                recipeDuration.setText(formatDuration(recipe.getDuration()));
+
+                ingredientAdapter.setIngredients(recipe.getIngredients());
+                GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), recipe.getIngredients().size() / 2);
+                layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                layoutManager.setSpanCount(2);
+
+                ingredientsRecyclerView.setLayoutManager(layoutManager);
+                ingredientsRecyclerView.setHasFixedSize(true);
+                ingredientsRecyclerView.setAdapter(ingredientAdapter);
+
+                instructionAdapter.setSteps(recipe.getInstructions().get(0).steps);
+                instructionsRecyclerView.setAdapter(instructionAdapter);
+            }
+        });
 
         ImageView recipeImage = findViewById(R.id.recipe_view_image);
         TextView recipeTitle = findViewById(R.id.recipe_view_name);
@@ -80,54 +109,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 .into(recipeImage);
 
         recipeTitle.setText(recipe.getTitle());
-    }
-
-
-    private void insertRecipeInfo() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.spoonacular.com")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-        RecipeService recipeService = retrofit.create(RecipeService.class);
-        recipeService.fetchRecipeInfo(recipe.getId(), BuildConfig.SpoonacularAPIKey).enqueue(new Callback<Recipe>() {
-            @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
-                if (!response.isSuccessful()) {
-                    Log.d("RETROFIT", String.format("Call to get recipe information was unsuccessful. Status: %d", response.code()));
-                } else {
-                    if (response.body() != null) {
-                        recipe = response.body();
-
-                        FloatingActionButton floatingActionButton = findViewById(R.id.save_btn);
-                        floatingActionButton.animate().scaleX(1.0f).scaleY(1.0f);
-
-                        TextView recipeSource = findViewById(R.id.recipe_view_source);
-                        TextView recipeServings = findViewById(R.id.recipe_view_servings);
-                        TextView recipeDuration = findViewById(R.id.recipe_view_duration);
-
-                        recipeSource.setText(String.format("by %s", recipe.getSource()));
-                        recipeServings.setText(String.format("Serves %d", recipe.getServings()));
-                        recipeDuration.setText(formatDuration(recipe.getDuration()));
-
-                        ingredientAdapter.setIngredients(recipe.getIngredients());
-                        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), recipe.getIngredients().size() / 2);
-                        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                        layoutManager.setSpanCount(2);
-
-                        ingredientsRecyclerView.setLayoutManager(layoutManager);
-                        ingredientsRecyclerView.setHasFixedSize(true);
-                        ingredientsRecyclerView.setAdapter(ingredientAdapter);
-
-                        instructionAdapter.setSteps(recipe.getInstructions().get(0).steps);
-                        instructionsRecyclerView.setAdapter(instructionAdapter);
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
-                Log.e("RETROFIT", String.format("Call to get recipe information failed \n%s", t.getMessage()));
-            }
-        });
     }
 
     public void saveRecipe(View view) {

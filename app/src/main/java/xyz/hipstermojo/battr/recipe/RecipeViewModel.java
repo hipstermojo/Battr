@@ -5,20 +5,19 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
 public class RecipeViewModel extends AndroidViewModel {
     private RecipeRepository recipeRepository;
     private LiveData<List<Recipe>> allRecipes;
-    private LiveData<List<Recipe>> fetchedRecipes;
 
     public RecipeViewModel(@NonNull Application application) {
         super(application);
 
         recipeRepository = new RecipeRepository(application);
         allRecipes = recipeRepository.getAllRecipes();
-        fetchedRecipes = recipeRepository.fetchRecipes();
     }
 
     public void insert(Recipe recipe) {
@@ -34,6 +33,10 @@ public class RecipeViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Recipe>> fetchRecipes() {
-        return fetchedRecipes;
+        return recipeRepository.fetchRecipes();
+    }
+
+    public MutableLiveData<Recipe> fetchRecipe(int recipeId) {
+        return recipeRepository.fetchRecipeById(recipeId);
     }
 }

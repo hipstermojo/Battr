@@ -21,11 +21,18 @@ import xyz.hipstermojo.battr.RecipeService;
 public class RecipeRepository {
     private RecipeDao recipeDao;
     private LiveData<List<Recipe>> allRecipes;
+    private RecipeService service;
+    private MutableLiveData<Recipe> recipe;
 
     public RecipeRepository(Application application) {
         RecipeDatabase database = RecipeDatabase.getInstance(application);
         recipeDao = database.recipeDao();
         allRecipes = recipeDao.getAllRecipes();
+        recipe = new MutableLiveData<>();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.spoonacular.com")
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        service = retrofit.create(RecipeService.class);
     }
 
     public void insert(Recipe recipe) {
@@ -41,11 +48,8 @@ public class RecipeRepository {
     }
 
     public MutableLiveData<List<Recipe>> fetchRecipes() {
+        Log.d("LIVEDATA", "Fetching all recipes");
         MutableLiveData<List<Recipe>> recipes = new MutableLiveData<>();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.spoonacular.com")
-                .addConverterFactory(GsonConverterFactory.create()).build();
-        RecipeService service = retrofit.create(RecipeService.class);
         service.listRecipes(BuildConfig.SpoonacularAPIKey).enqueue(new Callback<ListRecipesResponse>() {
             @Override
             public void onResponse(Call<ListRecipesResponse> call, Response<ListRecipesResponse> response) {
@@ -64,6 +68,28 @@ public class RecipeRepository {
             }
         });
         return recipes;
+    }
+
+    public MutableLiveData<Recipe> fetchRecipeById(int recipeId) {
+        service.fetchRecipeInfo(recipeId, BuildConfig.SpoonacularAPIKey).enqueue(new Callback<Recipe>() {
+            @Override
+            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("RETROFIT", String.format("Call to get recipe information was unsuccessful. Status: %d", response.code()));
+                } else {
+                    if (response.body() != null) {
+                        recipe.setValue(response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Recipe> call, Throwable t) {
+                Log.e("RETROFIT", String.format("Call to get recipe information failed \n%s", t.getMessage()));
+            }
+        });
+
+        return recipe;
     }
 
     private static class InsertRecipeAsyncTask extends AsyncTask<Recipe, Void, Void> {
