@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Battr</string>
+    <string name="login_activity_link_text">Already a user? Login here</string>
+    <string name="register_activity_link_text">New User? Register here</string>
+    <string name="register_btn_label">Register</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="login_btn_label">Login</string>
+    <string name="image_transition">image_transition</string>
+    <string name="name_transition">name_transition</string>
+    <string name="app_description">Your favourite recipe app</string>
+    <string name="swipe_help_text">Swipe right to save a recipe. Swipe left to view more</string>
+    <string name="end_of_list_text">It seems you have reached the end of the list. Check out your cookbook for the saved recipes. Happy cooking!</string>
 </resources>

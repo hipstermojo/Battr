@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="150dp"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/ingredient_item_warning"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/seafood_indicator" />
+
+    <TextView
+        android:id="@+id/ingredient_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/ingredient_item_warning"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Pishori Rice" />
+
+    <TextView
+        android:id="@+id/ingredient_item_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/ingredient_item_warning"
+        app:layout_constraintTop_toBottomOf="@id/ingredient_item_name"
+        tools:text="1.5 lbs (680 g)" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
