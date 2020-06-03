@@ -8,4 +8,5 @@
     <string name="login_btn_label">Login</string>
     <string name="image_transition">image_transition</string>
     <string name="name_transition">name_transition</string>
+    <string name="app_description">Your favourite recipe app</string>
 </resources>

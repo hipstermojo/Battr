@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary">
 
     <TextView
@@ -25,12 +25,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:paddingVertical="10dp"
-        tools:text="example@mail.co"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menu_header_app_name" />
+        app:layout_constraintTop_toBottomOf="@id/menu_header_app_name"
+        tools:text="example@mail.co" />
 
     <TextView
         android:id="@+id/menu_header_home_label"
@@ -65,8 +65,8 @@
         android:layout_marginVertical="10dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/footer_btn_bg"
-        android:text="Log Out"
         android:onClick="logOut"
+        android:text="Log Out"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
