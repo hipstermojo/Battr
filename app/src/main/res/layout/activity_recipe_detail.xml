@@ -36,6 +36,7 @@
                 android:fontFamily="@font/playfair_display_regular"
                 android:paddingHorizontal="10dp"
                 android:textSize="24sp"
+                android:paddingBottom="10dp"
                 android:transitionName="@string/name_transition"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recipe_view_image"
