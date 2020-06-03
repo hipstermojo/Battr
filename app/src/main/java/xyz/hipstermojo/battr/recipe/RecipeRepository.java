@@ -16,6 +16,7 @@ import java.util.List;
 
 import xyz.hipstermojo.battr.FirestoreService;
 
+import static xyz.hipstermojo.battr.FirestoreService.ID_UNINITIALIZED;
 import static xyz.hipstermojo.battr.FirestoreService.RECIPES_COLLECTION;
 import static xyz.hipstermojo.battr.FirestoreService.SAVED_RECIPE_COLLECTION;
 
@@ -28,7 +29,7 @@ public class RecipeRepository {
     public RecipeRepository(Application application) {
         firestoreDB = FirestoreService.getInstance();
         SharedPreferences sharedPref = application.getSharedPreferences("Battr", Context.MODE_PRIVATE);
-        FirestoreService.getAllRecipes(allRecipes, sharedPref.getInt("curId", -1));
+        FirestoreService.getAllRecipes(allRecipes, sharedPref.getInt("curId", ID_UNINITIALIZED));
         recipe = new MutableLiveData<>();
     }
 

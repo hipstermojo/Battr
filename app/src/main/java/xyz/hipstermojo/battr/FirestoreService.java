@@ -22,6 +22,8 @@ import xyz.hipstermojo.battr.recipe.Recipe;
 public class FirestoreService {
     public static final String RECIPES_COLLECTION = "recipes";
     public static final String SAVED_RECIPE_COLLECTION = "saved_recipes";
+    public static final int ID_UNINITIALIZED = -1;
+    public static final int ID_FINISHED = -2;
     private static FirebaseFirestore dbInstance;
 
     public static FirebaseFirestore getInstance() {
@@ -34,7 +36,7 @@ public class FirestoreService {
     public static void getAllRecipes(MutableLiveData<List<Recipe>> recipes, int curId) {
         CollectionReference recipeCollectionRef = getInstance().collection(RECIPES_COLLECTION);
         Query query = recipeCollectionRef.orderBy("id");
-        if (curId != -1) {
+        if (curId != ID_UNINITIALIZED) {
             query = query.startAt(curId);
         }
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

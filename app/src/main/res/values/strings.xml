@@ -9,4 +9,6 @@
     <string name="image_transition">image_transition</string>
     <string name="name_transition">name_transition</string>
     <string name="app_description">Your favourite recipe app</string>
+    <string name="swipe_help_text">Swipe right to save a recipe. Swipe left to view more</string>
+    <string name="end_of_list_text">It seems you have reached the end of the list. Check out your cookbook for the saved recipes. Happy cooking!</string>
 </resources>

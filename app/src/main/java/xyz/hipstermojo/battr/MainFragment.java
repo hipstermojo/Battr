@@ -38,6 +38,7 @@ import xyz.hipstermojo.battr.recipe.Recipe;
 import xyz.hipstermojo.battr.recipe.RecipeViewModel;
 
 import static android.app.Activity.RESULT_OK;
+import static xyz.hipstermojo.battr.FirestoreService.ID_FINISHED;
 import static xyz.hipstermojo.battr.MainActivity.RECIPE;
 
 public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickListener {
@@ -94,6 +95,10 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
                     recipeViewModel.insert(recipe, firebaseUser.getEmail());
                     canSave = false;
                 }
+                if (position + 1 == recipes.size()) {
+                    TextView textView = getView().findViewById(R.id.end_of_list_text);
+                    displayFinishedText(textView);
+                }
             }
         });
 
@@ -126,10 +131,18 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
                 recipeAdapter = new RecipeAdapter(getContext(), recipes);
                 cardStackView.setAdapter(recipeAdapter);
                 recipeAdapter.setOnItemClickListener(MainFragment.this::onItemClick);
+                if (recipes.size() == 0) {
+                    displayFinishedText(getView().findViewById(R.id.end_of_list_text));
+                }
             }
         });
 
         return view;
+    }
+
+    private void displayFinishedText(TextView textView) {
+        textView.animate().scaleX(1.0f).scaleY(1.0f);
+        curId = ID_FINISHED;
     }
 
     @Override

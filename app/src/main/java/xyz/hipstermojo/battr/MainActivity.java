@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser = firebaseAuth.getCurrentUser();
-        TextView textView = findViewById(R.id.menu_header_email);
-        textView.setText(currentUser.getEmail());
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -44,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
+                } else {
+                    TextView textView = findViewById(R.id.menu_header_email);
+                    textView.setText(currentUser.getEmail());
                 }
             }
         };
