@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
@@ -37,14 +36,12 @@ public class SavedRecipesFragment extends Fragment implements SavedRecipesAdapte
     private RecipeViewModel recipeViewModel;
     private SavedRecipesAdapter adapter;
     private List<Recipe> savedRecipes = new ArrayList<>();
-    private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        firebaseAuth = FirebaseAuth.getInstance();
-        currentUser = firebaseAuth.getCurrentUser();
+        currentUser = ((MainActivity) getActivity()).getCurrentUser();
     }
 
     @Nullable

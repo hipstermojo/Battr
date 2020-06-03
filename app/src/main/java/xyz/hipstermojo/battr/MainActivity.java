@@ -1,13 +1,19 @@
 package xyz.hipstermojo.battr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.view.View;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import nl.psdcompany.duonavigationdrawer.views.DuoDrawerLayout;
 import nl.psdcompany.duonavigationdrawer.widgets.DuoDrawerToggle;
@@ -18,11 +24,30 @@ public class MainActivity extends AppCompatActivity {
     public static final String RECIPE = "Clicked Recipe";
 
     private DuoDrawerLayout drawerLayout;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser = firebaseAuth.getCurrentUser();
+        TextView textView = findViewById(R.id.menu_header_email);
+        textView.setText(currentUser.getEmail());
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
+
         Fade fadeTransition = new Fade();
         View decor = getWindow().getDecorView();
         fadeTransition.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
@@ -51,5 +76,25 @@ public class MainActivity extends AppCompatActivity {
             manager.popBackStack();
         }
         drawerLayout.closeDrawer();
+    }
+
+    public FirebaseUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public void logOut(View view) {
+        firebaseAuth.signOut();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
     }
 }

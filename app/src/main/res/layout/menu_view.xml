@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimary">
 
     <TextView
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:paddingVertical="10dp"
-        android:text="gitere81@gmail.com"
+        tools:text="example@mail.co"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="italic"
@@ -65,6 +66,7 @@
         android:layout_marginStart="20dp"
         android:background="@drawable/footer_btn_bg"
         android:text="Log Out"
+        android:onClick="logOut"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

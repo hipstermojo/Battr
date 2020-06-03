@@ -22,7 +22,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -46,7 +45,6 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
     private RecipeAdapter recipeAdapter;
     private CardStackView cardStackView;
     private RecipeViewModel recipeViewModel;
-    private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private boolean canSave = false;
     private int curId;
@@ -57,9 +55,9 @@ public class MainFragment extends Fragment implements RecipeAdapter.OnItemClickL
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         CardStackLayoutManager layoutManager;
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
+        firebaseUser = ((MainActivity) getActivity()).getCurrentUser();
         recipeViewModel = new ViewModelProvider(getActivity()).get(RecipeViewModel.class);
+
 
         layoutManager = new CardStackLayoutManager(getContext(), new CardStackListener() {
             @Override
