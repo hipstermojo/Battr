@@ -12,6 +12,6 @@ A simple recipes app using Tinder-like swipes
 > Disclaimer: The recipe information is sourced from [Spoonacular](https://spoonacular.com).
 
 ## Screenshots
-![login screen](./example/screenshot_login.png)
-![home page](./example/screenshot_home_page.png)
-![saved recipes](./example/screenshot_saved_recipes.png)
+<img src="./example/screenshot_login.png" alt="login screen" width="300">
+<img src="./example/screenshot_home_page.png" alt="home page" width="300">
+<img src="./example/screenshot_saved_recipes.png" alt="saved recipes" width="300">
